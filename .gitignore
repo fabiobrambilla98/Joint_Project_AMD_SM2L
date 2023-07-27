@@ -1,1 +1,16 @@
 project/df.parquet
+.DS_Store
+datasets/.DS_Store
+datasets/HI-Medium_Patterns.txt
+datasets/HI-Medium_Trans.csv
+datasets/HI-Small_Patterns.txt
+datasets/HI-Small_Trans.csv
+datasets/LI-Medium_Patterns.txt
+datasets/LI-Small_Patterns.txt
+datasets/LI-Medium_Trans.csv
+datasets/LI-Small_Trans.csv
+datasets/ibm-transactions-for-anti-money-laundering-aml/HI-Large_Trans.csv
+datasets/ibm-transactions-for-anti-money-laundering-aml/.DS_Store
+datasets/ibm-transactions-for-anti-money-laundering-aml/LI-Large_Patterns.txt
+datasets/ibm-transactions-for-anti-money-laundering-aml/LI-Large_Trans.csv
+datasets/ibm-transactions-for-anti-money-laundering-aml/HI-Large_Patterns.txt
