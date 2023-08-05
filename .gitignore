@@ -1,4 +1,3 @@
-project/df.parquet
 .DS_Store
 datasets/.DS_Store
 datasets/HI-Medium_Patterns.txt
@@ -17,3 +16,5 @@ datasets/ibm-transactions-for-anti-money-laundering-aml/HI-Large_Patterns.txt
 dataset/HI-Large_Trans.csv
 dataset/HI-Small_Patterns.txt
 dataset/HI-Small_Trans.csv
+project/preprocessed_data
+project/__pycache__
