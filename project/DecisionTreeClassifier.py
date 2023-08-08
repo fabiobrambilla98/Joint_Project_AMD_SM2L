@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from collections import Counter
 import random
 import math
@@ -39,8 +40,10 @@ class DTC():
         self.max_thresholds = max_thresholds
         self.class_weights = class_weights
         self.tree = None
+        self.random_state = random_state
+        random.seed(self.random_state)
 
-        random.seed(random_state)
+        
 
     def fit(self, X, y):
         """
@@ -55,6 +58,10 @@ class DTC():
         Returns:
         None
         """
+        if isinstance(X, pd.DataFrame):
+            X = np.array(X)
+        if isinstance(y, pd.DataFrame):
+            y = np.array(y)
 
         self.tree = self.__create_tree(X, y)
        
@@ -141,6 +148,7 @@ class DTC():
             The indices of the features to consider.
         """
 
+        np.random.seed(self.random_state)
         if self.max_features is not None:
             if self.max_features == "sqrt":
                 columns_id = np.random.choice(range(n_features), int(math.sqrt(n_features)), replace=False)
@@ -309,6 +317,9 @@ class DTC():
         predictions: array-like of shape (n_samples,)
             The predicted class labels.
         """
+
+        if(isinstance(X, pd.DataFrame)):
+            X = np.array(X)
         
         predictions = []
         for sample in X:
@@ -317,30 +328,24 @@ class DTC():
         return np.array(predictions)
 
     def score(self, X, y):
-        """
-        Calculates the performance metrics of the decision tree classifier.
-
-        Parameters:
-        - X: array-like of shape (n_samples, n_features)
-            The input samples.
-        - y: array-like of shape (n_samples,)
-            The target values.
-
-        Returns:
-        metrics: dict
-            The performance metrics.
-        """
+        if(isinstance(y, pd.DataFrame)):
+            y = np.array(y)
 
 
-        predictions = self.predict(X)
+        y_pred = self.predict(X)
+
+        
         metrics = {
-            'accuracy': accuracy_score(predictions, y),
-            'recall': recall_score(predictions, y),
-            'precision': precision_score(predictions, y),
-            'f1_score': f1_score(predictions, y),
-            'roc_auc': roc_auc_score(predictions, y)
+            'accuracy': accuracy_score(y_pred, y),
+            'recall': recall_score(y_pred, y),
+            'precision': precision_score(y_pred, y),
+            'f1_score': f1_score(y_pred, y),
+            'roc_auc': roc_auc_score(y_pred, y)
         }
-        return metrics
+
+        print(metrics)
+           
+        return np.mean(y_pred == y)
     
 
     def __traverse_tree(self, sample, node):

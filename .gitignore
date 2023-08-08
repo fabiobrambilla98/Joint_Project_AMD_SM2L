@@ -18,3 +18,7 @@ dataset/HI-Small_Patterns.txt
 dataset/HI-Small_Trans.csv
 project/preprocessed_data
 project/__pycache__
+project/df.parquet
+project/df.parquet1
+project/df.parquet2
+project/spark-warehouse
