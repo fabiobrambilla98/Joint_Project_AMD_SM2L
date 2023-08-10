@@ -22,3 +22,5 @@ project/df.parquet
 project/df.parquet1
 project/df.parquet2
 project/spark-warehouse
+project/partial_results
+project/to_preprocess

@@ -41,8 +41,8 @@ class DTC():
         self.class_weights = class_weights
         self.tree = None
         self.random_state = random_state
-        random.seed(self.random_state)
-
+        np.random.seed(self.random_state)
+        self.node_counter = 0
         
 
     def fit(self, X, y):
@@ -58,6 +58,7 @@ class DTC():
         Returns:
         None
         """
+        self.node_counter = 0
         if isinstance(X, pd.DataFrame):
             X = np.array(X)
         if isinstance(y, pd.DataFrame):
@@ -148,7 +149,7 @@ class DTC():
             The indices of the features to consider.
         """
 
-        np.random.seed(self.random_state)
+        np.random.seed(self.random_state + self.node_counter if self.random_state is not None else None)
         if self.max_features is not None:
             if self.max_features == "sqrt":
                 columns_id = np.random.choice(range(n_features), int(math.sqrt(n_features)), replace=False)
@@ -186,7 +187,7 @@ class DTC():
         thresholds: array-like
             The thresholds to consider.
         """
-
+        np.random.seed(self.random_state + self.node_counter if self.random_state is not None else None)
         if self.max_thresholds is not None:
             if self.max_thresholds <= 0:
                 raise ValueError("max_thresholds must be > 0")
@@ -220,7 +221,7 @@ class DTC():
         best_threshold = None
         best_info_gain = -np.inf
         best_feature = None
-
+        self.node_counter += 1
         features = self.__get_features(X.shape[1])
 
         for feature in features:
