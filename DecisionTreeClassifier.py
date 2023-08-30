@@ -372,7 +372,7 @@ class DTC():
 
         return precision, recall, f1_score, accuracy
 
-    def score(self, X, y):
+    def score(self, X, y, acc=False):
         """
         Compute and return the f1 score for the given test data and labels.
 
@@ -383,6 +383,8 @@ class DTC():
             True labels for the test data. Can be a DataFrame or a Numpy array.
 
         Returns:
+        -float
+            Accuracy score of the model on the given test data and labels. if acc is True
         - float
             f1 score of the model on the given test data and labels.
 
@@ -394,6 +396,9 @@ class DTC():
             X = np.array(X)
 
         y_pred = self.predict(X)
+
+        if acc:
+            return np.mean(y == y_pred)
 
         return f1_score(y, y_pred)
 
