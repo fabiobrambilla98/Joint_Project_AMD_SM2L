@@ -19,7 +19,7 @@ class DTC():
         - min_sample_split: int, optional (default=2)
             The minimum number of samples required to split an internal node.
         - criterion: str, optional (default="gini")
-            The function to measure the quality of a split. Supported criteria are "gini" for the Gini impurity, "entropy" for the information gain, and "shannon" for the Shannon entropy.
+            The function to measure the quality of a split. Supported criteria are "gini" for the Gini impurity and "entropy" for the information gain.
         - min_info_gain: float, optional (default=0)
             The minimum information gain required to split an internal node.
         - max_features: int, float, "sqrt", "log2", or None, optional (default=None)
@@ -88,7 +88,6 @@ class DTC():
                                             for value in unique_values])
 
         split_criteria = {
-            'shannon': lambda probs: -np.sum(probs * np.log2(probs)),
             'entropy': lambda probs: -np.sum(probs * np.log2(probs + 1e-10)),
             'gini': lambda probs:  1 - np.sum(probs ** 2)
         }
